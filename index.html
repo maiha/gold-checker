@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゴールド相場情報</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- uPlot CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/uplot@1.6.30/dist/uPlot.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-main">
+                <h1>ゴールド相場情報</h1>
+                <div class="last-update">
+                    データ: <span id="lastUpdate">--:--</span>
+                </div>
+            </div>
+            <div class="status-line" id="statusLine">準備中...</div>
+        </header>
+
+        <main>
+            <!-- メインコンテンツエリア -->
+            <div id="mainSection">
+                <!-- チャート表示 -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>価格推移チャート</h3>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <div class="chart-period-selector">
+                                <button class="period-btn" data-period="5">5日</button>
+                                <button class="period-btn" data-period="7">1週間</button>
+                                <button class="period-btn active" data-period="30">30日</button>
+                                <button class="period-btn" data-period="90">3ヶ月</button>
+                                <button class="period-btn" data-period="180">半年</button>
+                                <button class="period-btn" data-period="365">1年</button>
+                            </div>
+                            <button id="patchDataBtn" class="period-btn" style="background: #667eea; color: white; margin-left: auto; min-width: 150px;">
+                                最新データ取得
+                            </button>
+                        </div>
+                    </div>
+                    <div id="chart" class="chart"></div>
+                </div>
+
+                <!-- 過去データテーブル -->
+                <div class="data-table-container">
+                    <h3>過去30日間のデータ</h3>
+                    <table id="historicalDataTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>日付</th>
+                                <th>スポット<br>(USD/oz)</th>
+                                <th>ETF 1540<br>(円)</th>
+                                <th>USD/JPY<br>(円)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- データはJavaScriptで動的に挿入 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p class="disclaimer">
+                ※ 表示されるデータは参考値です。実際の取引には各証券会社の最新情報をご確認ください。
+            </p>
+        </footer>
+    </div>
+
+    <!-- uPlot JS -->
+    <script src="https://unpkg.com/uplot@1.6.30/dist/uPlot.iife.min.js"></script>
+
+    <!-- データファイル読み込み（CORS回避のためJSファイル形式） -->
+    <script src="data/spot.js"></script>
+    <script src="data/etf1540.js"></script>
+    <script src="data/forex.js"></script>
+
+    <!-- メインスクリプト -->
+    <script src="script.js"></script>
+</body>
+</html>

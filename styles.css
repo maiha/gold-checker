@@ -1,0 +1,610 @@
+/* リセットと基本設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.4;
+    color: #333;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding: 8px;
+}
+
+/* コンテナ */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* ヘッダー */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 12px;
+}
+
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+header h1 {
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.last-update {
+    font-size: 0.75rem;
+    opacity: 0.9;
+    white-space: nowrap;
+}
+
+#lastUpdate {
+    font-weight: 500;
+}
+
+.status-line {
+    font-size: 0.7rem;
+    opacity: 0.85;
+    min-height: 1.2em;
+    padding: 2px 0;
+}
+
+.status-line.error {
+    color: #ffcccb;
+    font-weight: 500;
+}
+
+/* メインコンテンツ */
+main {
+    padding: 8px;
+}
+
+/* カード */
+.card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+/* ETF情報 */
+.etf-info {
+    margin-top: 15px;
+}
+
+.ticker-select {
+    margin-bottom: 15px;
+}
+
+.ticker-select label {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: 500;
+    color: #666;
+}
+
+.ticker-select select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+    min-width: 300px;
+}
+
+.ticker-select select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* データ行 */
+.data-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.data-row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    flex: 0 0 150px;
+    font-weight: 500;
+    color: #666;
+}
+
+.value {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-right: 5px;
+}
+
+.unit {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* 前日比の色分け */
+.change {
+    font-size: 1rem;
+}
+
+.change.positive {
+    color: #4caf50;
+}
+
+.change.negative {
+    color: #f44336;
+}
+
+/* コントロール */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.refresh-btn {
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.refresh-btn:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.refresh-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.auto-refresh {
+    display: flex;
+    align-items: center;
+}
+
+.auto-refresh input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.auto-refresh label {
+    font-size: 0.95rem;
+    color: #666;
+    cursor: pointer;
+}
+
+/* エラーメッセージ */
+.error-message {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff3e0;
+    border: 1px solid #ffb74d;
+    border-radius: 6px;
+    color: #e65100;
+    font-size: 0.95rem;
+}
+
+/* フッター */
+footer {
+    padding: 6px;
+    background: #f8f9fa;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+}
+
+.disclaimer {
+    font-size: 0.7rem;
+    color: #666;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    body {
+        padding: 6px;
+    }
+
+    header h1 {
+        font-size: 1rem;
+    }
+
+    main {
+        padding: 6px;
+    }
+
+    .ticker-select select {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .data-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .label {
+        flex: none;
+        margin-bottom: 2px;
+    }
+
+    .value {
+        font-size: 0.95rem;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .refresh-btn {
+        width: 100%;
+    }
+}
+
+/* ローディング状態 */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.loading {
+    opacity: 0.6;
+}
+
+/* オフラインモード用スタイル */
+
+/* モード切替ボタン */
+.mode-selector {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 4px 8px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+}
+
+.mode-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+    color: white;
+}
+
+/* 統計情報グリッド */
+.statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* 為替情報を薄く表示 */
+.statistics-grid .stat-card:nth-child(3) {
+    opacity: 0.3;
+    font-size: 0.7rem;
+}
+
+.statistics-grid .stat-card:nth-child(3) h3 {
+    font-size: 0.7rem;
+}
+
+.statistics-grid .stat-card:nth-child(3) .stat-label {
+    font-size: 0.65rem;
+}
+
+.statistics-grid .stat-card:nth-child(3) .stat-value {
+    font-size: 0.7rem;
+}
+
+.stat-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h3 {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.stat-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* データテーブル */
+.data-table-container {
+    margin-top: 8px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+/* テーブルの為替列を薄く表示 */
+.data-table th:nth-child(4),
+.data-table td:nth-child(4) {
+    opacity: 0.3;
+    font-size: 0.65rem;
+}
+
+.data-table-container h3 {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+}
+
+.data-table thead {
+    background: #f8f9fa;
+}
+
+.data-table th {
+    padding: 4px 6px;
+    text-align: left;
+    font-weight: 600;
+    color: #555;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.data-table td {
+    padding: 3px 6px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.data-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.data-table td.number {
+    text-align: right;
+    font-family: 'Courier New', monospace;
+}
+
+/* オフライン情報 */
+.offline-info {
+    margin-top: 8px;
+    padding: 6px;
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.offline-info p {
+    margin: 0;
+    color: #1976d2;
+    font-size: 0.75rem;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .mode-selector {
+        flex-direction: column;
+    }
+
+    .statistics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .data-table {
+        font-size: 0.7rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 3px 4px;
+    }
+
+    .stat-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+}
+
+/* チャート表示 */
+.chart-container {
+    margin: 8px 0;
+    padding: 8px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.chart-container h3 {
+    margin: 0;
+    color: #333;
+    font-size: 0.85rem;
+}
+
+.chart-period-selector {
+    display: flex;
+    gap: 4px;
+}
+
+.period-btn {
+    padding: 3px 8px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.period-btn:hover {
+    background: #f5f5f5;
+    border-color: #999;
+}
+
+.period-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.period-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+
+.chart {
+    width: 100%;
+    min-height: 250px;
+}
+
+/* uPlotカスタマイズ */
+.u-legend {
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.u-series {
+    display: inline-block;
+    margin-right: 20px;
+    padding: 2px 8px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 3px;
+}
+
+.u-label {
+    margin-right: 0;
+    padding-right: 6px;
+}
+
+.u-value {
+    display: inline-block;
+    width: 70px;
+    text-align: right;
+    font-family: monospace;
+    padding-left: 6px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        padding: 6px;
+    }
+
+    .chart {
+        min-height: 200px;
+    }
+
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .chart-period-selector {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .period-btn {
+        flex: 1;
+        padding: 3px 4px;
+        font-size: 0.7rem;
+    }
+}
