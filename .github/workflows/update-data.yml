@@ -1,0 +1,115 @@
+name: Update Gold Price Data
+
+on:
+  # 毎日日本時間の午前4時に実行（UTC 19:00）
+  schedule:
+    - cron: '0 19 * * *'
+  # 手動実行も可能
+  workflow_dispatch:
+  # mainブランチへのプッシュ時（コードファイルの変更時のみ）
+  push:
+    branches:
+      - main
+    paths:
+      - '**.js'
+      - '**.html'
+      - '**.css'
+      - 'Makefile'
+      - '.github/workflows/**'
+
+# GitHub Pagesへのデプロイに必要な権限
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# 同時実行を制限
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # ビルドジョブ: データの取得と成果物の作成
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Create cache directory
+      run: mkdir -p cache
+
+    - name: Fetch latest data from Stooq.pl
+      run: |
+        echo "📊 Fetching latest market data..."
+        make fetch
+
+    - name: Convert CSV to JSON
+      run: |
+        echo "🔄 Converting data to JSON format..."
+        make convert
+
+    - name: List data files
+      run: |
+        echo "📁 Generated data files:"
+        ls -la data/
+
+    - name: Commit data files
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+
+        # dataディレクトリを一時的にGitに追加
+        git add -f data/*.json data/*.js
+
+        # 変更がある場合のみコミット
+        if ! git diff --cached --quiet; then
+          git commit -m "Update gold price data [$(date '+%Y-%m-%d %H:%M:%S')]"
+        else
+          echo "No changes to commit"
+        fi
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'
+
+  # デプロイジョブ: GitHub Pagesへの公開
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+  # クリーンアップジョブ（オプション：古いキャッシュを削除）
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always()
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Clean old cache files
+      run: |
+        echo "🧹 Cleaning old cache files..."
+        make clean-cache || true

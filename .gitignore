@@ -1,5 +1,6 @@
-# データディレクトリ
-data
+# データディレクトリ（ローカルでは無視、GitHub Actionsでコミット）
+data/*.json
+data/*.js
 cache
 
 # Node.js関連
