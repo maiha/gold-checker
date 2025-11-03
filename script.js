@@ -263,7 +263,7 @@ class OfflineDataManager {
         const opts = {
             title: `ゴールド相場推移（${periodLabel}）`,
             width: containerWidth,
-            height: 250,
+            height: 500,
             series: [
                 {
                     label: "日付",
@@ -287,7 +287,7 @@ class OfflineDataManager {
                 },
                 {
                     label: "為替",
-                    stroke: "rgba(50, 205, 50, 0.3)",
+                    stroke: "rgba(80, 80, 80, 0.5)",
                     width: 1,
                     scale: "forex",
                 }

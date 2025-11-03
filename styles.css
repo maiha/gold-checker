@@ -556,7 +556,7 @@ footer {
 
 .chart {
     width: 100%;
-    min-height: 250px;
+    min-height: 500px;
 }
 
 /* uPlotカスタマイズ */
@@ -593,7 +593,7 @@ footer {
     }
 
     .chart {
-        min-height: 200px;
+        min-height: 400px;
     }
 
     .chart-header {
